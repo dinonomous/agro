@@ -1,0 +1,41 @@
+Agro-Hub: Soil-Aware Crop Rotation Optimization Project
+=====================================================
+
+1. PROJECT OVERVIEW
+-------------------
+Agro-Hub is a research-driven dashboard that uses Deep Reinforcement Learning (DRL) to solve the complex problem of sustainable agriculture. The project aims to provide farmers with a "smart advisor" that balances immediate financial profit with long-term soil health.
+
+2. CORE PIPELINE
+----------------
+The project operates through a seamless 4-stage pipeline:
+- Input Stage: Users provide cultivation history or manual soil readings via the web dashboard.
+- Simulation Stage: The backend initializes a "Digital Twin" (AgroEnv) that calculates soil nutrient depletion based on historical data.
+- AI Logic Stage: The trained PPO model analyzes the soil state and fetches live market data.
+- Recommendation Stage: The dashboard displays ranked crop suggestions with confidence scores (Market Fit), projected yields, and Soil HP metrics.
+
+3. ALGORITHMS & MODELS
+----------------------
+- Algorithm: Proximal Policy Optimization (PPO). This is a state-of-the-art Reinforcement Learning algorithm known for its stability and reliability in continuous decision-making tasks.
+- Architecture: Actor-Critic MLP (Multi-Layer Perceptron). The "Actor" decides which crop to plant, while the "Critic" evaluates how good that decision was for the soil's future.
+- Training: The model was trained for 100,000 steps within a Gymnasium-based agricultural environment to learn complex crop-soil interactions.
+
+4. DATA INTEGRATION (yfinance)
+------------------------------
+The project uses the 'yfinance' library to bridge the gap between biological simulation and the real-world economy.
+- Real-Time Price Tracking: Every request triggers a live fetch of global commodity prices (Ticker symbols like ZW=F for Wheat, ZR=F for Rice).
+- Currency Conversion: The system automatically retrieves the USD/INR exchange rate to provide localized pricing in Indian Rupees (₹).
+- Market Trend Analysis: It calculates the percentage change in price to determine if a crop is "Bullish" or "Bearish," influencing the AI's final recommendation.
+
+5. PROJECT NOVELTY
+------------------
+- Multi-Objective Optimization: Unlike standard models that only maximize yield, Agro-Hub uses a "Reward Function" that heavily penalizes soil degradation.
+- Soil HP (Health Power): A novel metric that simplifies complex chemical data (N, P, K, Organic Carbon) into a single health score for easy farmer understanding.
+- Legume-Legally Logic: The AI understands "Nitrogen Fixation," proactively suggesting legumes (Soybean/Pulses) to "recharge" the soil before planting intensive grains like Rice.
+- Stochastic Adaptation: The system is trained against random weather variability (simulated rain and temperature), ensuring the advice is robust against climate change.
+
+6. TECHNOLOGY STACK
+-------------------
+- Frontend: HTML5, CSS3 (Glassmorphism), JavaScript (Chart.js).
+- Backend: Python 3, Flask (API Framework).
+- ML Core: Gymnasium, Stable-Baselines3, PyTorch.
+- External Data: yfinance (Yahoo Finance API).

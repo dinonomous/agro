@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agro-Hub | Research Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="frontend/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="dashboard">
+        <header class="glass-container">
+            <div class="header-content">
+                <h1>Agro-Hub Dashboard</h1>
+                <p class="subtitle">Soil-Aware Crop Rotation Optimization Using Multi-Objective DRL</p>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                Model: PPO Optimized
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card glass-container">
+                <span class="stat-label">Performance Success (Simulated)</span>
+                <span class="stat-value">98.2%</span>
+                <span class="stat-trend positive">↑ Reliability</span>
+            </div>
+            <div class="stat-card glass-container">
+                <span class="stat-label">Soil Sustainability (Simulated)</span>
+                <span class="stat-value">0.66</span>
+                <span class="stat-trend positive">↑ Healthy</span>
+            </div>
+            <div class="stat-card glass-container">
+                <span class="stat-label">Yield Efficiency (Simulated)</span>
+                <span class="stat-value">0.17</span>
+                <span class="stat-trend">Standardized Scale</span>
+            </div>
+            <div class="stat-card glass-container">
+                <span class="stat-label">Training Episodes (Simulated)</span>
+                <span class="stat-value">100k</span>
+                <span class="stat-trend">Steps Completed</span>
+            </div>
+        </section>
+
+        <section class="advisor-section glass-container">
+            <div class="advisor-header">
+                <h2>Crop History Advisor</h2>
+                <p>Input your previous cultivation history to get the optimal recommendation for your next season.</p>
+            </div>
+
+            <div class="advisor-grid">
+                <form id="history-form" class="advisor-form">
+                    <div class="manual-soil-entry">
+                        <label>Manual Soil Input (Optional - Overrides History)</label>
+                        <div class="input-row soil-inputs">
+                            <div class="input-group">
+                                <label>Nitrogen (N)</label>
+                                <input type="number" id="manual-n" placeholder="e.g. 150" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>Phos (P)</label>
+                                <input type="number" id="manual-p" placeholder="e.g. 40" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>Potas (K)</label>
+                                <input type="number" id="manual-k" placeholder="e.g. 150" step="0.1">
+                            </div>
+                            <div class="input-group">
+                                <label>Org. Carbon %</label>
+                                <input type="number" id="manual-oc" placeholder="e.g. 1.5" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="crop-type">Crop Type</label>
+                            <select id="crop-type" required>
+                                <option value="Wheat">Wheat</option>
+                                <option value="Rice">Rice</option>
+                                <option value="Maize">Maize</option>
+                                <option value="Soybean">Soybean</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="duration">Months Cultivated</label>
+                            <input type="number" id="duration" min="1" max="12" value="4" required>
+                        </div>
+                        <button type="button" id="add-history" class="btn secondary">Add to History</button>
+                    </div>
+
+                    <div class="history-list-container">
+                        <label>Recent History</label>
+                        <ul id="history-list" class="history-list">
+                            <!-- Items added here -->
+                        </ul>
+                    </div>
+
+                    <div class="advisor-actions">
+                        <button type="submit" class="btn primary-btn">Get ML Recommendation</button>
+                        <button type="button" id="clear-history" class="btn secondary">Clear History</button>
+                    </div>
+                </form>
+
+                <div id="advisor-result" class="advisor-result hidden">
+                    <div class="recommendation-badge">Top AI Recommendations</div>
+
+                    <div id="suggestions-list" class="suggestions-list">
+                        <!-- Ranked suggestions will appear here -->
+                    </div>
+
+                    <div class="soil-state-preview">
+                        <label>Current Soil Profile (Estimated)</label>
+                        <div id="soil-summary" class="soil-chips">
+                            <span>--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-layout">
+            <div class="primary-plots glass-container">
+                <h2>Performance Analysis & Live Policy Distribution</h2>
+                <div class="plot-grid single-plot">
+                    <div class="plot-item">
+                        <h3>Live Policy Behavior</h3>
+                        <div class="chart-container" style="position: relative; height:300px; width:100%">
+                            <canvas id="policyChart"></canvas>
+                        </div>
+                        <p class="plot-desc">Real-time action probability distribution based on your current soil state.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="strategy-details glass-container">
+                <h2>Strategy Insights</h2>
+                <div class="strategy-list">
+                    <div class="strategy-item">
+                        <div class="strategy-icon ppo"></div>
+                        <div class="strategy-info">
+                            <h4>PPO (Optimized)</h4>
+                            <p>Proactively rotates legumes to fix soil nitrogen before intensive grain cycles.</p>
+                        </div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-icon greedy"></div>
+                        <div class="strategy-info">
+                            <h4>Greedy Yield</h4>
+                            <p>Maximizes short-term gain but risks long-term soil bankruptcy.</p>
+                        </div>
+                    </div>
+                    <div class="strategy-item">
+                        <div class="strategy-icon fixed"></div>
+                        <div class="strategy-info">
+                            <h4>Fixed Rotation</h4>
+                            <p>Baseline heuristic failing to adapt to stochastic climate fluctuations.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="history-section glass-container" id="api-history-section" style="margin-top: 2rem;">
+            <div class="advisor-header">
+                <h2>API Activity Log (Database)</h2>
+                <p>Recent predictions served from the SQLite tracking database.</p>
+                <button type="button" id="fetch-history-btn" class="btn secondary" style="margin-top:1rem;">Load Activity Log</button>
+            </div>
+            <div id="api-history-list" class="suggestions-list" style="margin-top: 1.5rem;">
+                <!-- DB items appear here -->
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Agro-Hub Research Project | Deep Reinforcement Learning in Agriculture</p>
+        </footer>
+    </main>
+
+    <script src="frontend/app.js"></script>
+</body>
+
+</html>

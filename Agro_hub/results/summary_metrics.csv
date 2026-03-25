@@ -1,0 +1,4 @@
+Strategy,Reward,Yield,SoilHealth
+Fixed Rotation,-7.7159634,0.10843433,0.2600111
+Greedy Yield,-5.7775936,0.17146258,0.7002342
+PPO (Optimized),-5.895837,0.16711955,0.661185

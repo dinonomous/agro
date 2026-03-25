@@ -1,0 +1,39 @@
+[
+    {
+        "description": "Valid History Input - Single Crop",
+        "input": {
+            "history": [{"crop": "Wheat", "months": 4}]
+        },
+        "expected": "Success. Returns JSON with suggestions and current_soil_summary."
+    },
+    {
+        "description": "Valid Manual Soil Input",
+        "input": {
+            "history": [],
+            "manual_soil": {
+                "n": 120,
+                "p": 40,
+                "k": 100,
+                "oc": 1.2
+            }
+        },
+        "expected": "Success. Uses manual overrides to provide suggestions."
+    },
+    {
+        "description": "Empty Input",
+        "input": {},
+        "expected": "Handled gracefully. Should assume default starting state and run."
+    },
+    {
+        "description": "Invalid Input Field / Missing Crop",
+        "input": {
+            "history": [{"unknown_field": "Banana"}]
+        },
+        "expected": "Skips unknown crop or returns standard crop recommendations safely without breaking."
+    },
+    {
+        "description": "Malformed JSON",
+        "input": "Not a valid JSON string",
+        "expected": "Error block catches it and returns HTTP 400 with a clean JSON error message."
+    }
+]
